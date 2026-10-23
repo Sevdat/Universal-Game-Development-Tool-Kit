@@ -14,10 +14,9 @@ This project contains everything you could ever need for developing a complex Ro
 
 <a href="https://www.youtube.com/watch?v=6pk4EcZ6t1A">
   <img src="https://github.com/user-attachments/assets/aef336ca-1aac-4bd5-9226-1056fb74617c"
-       alt="Watch Iron Brainrot: Mech Arena Showdown"
+       alt="Watch Iron Brainrot"
        width="800">
 </a>
-
 </div>
 
 The is a unified Server-Client scripting architecture living in the ReplicatedStorage. This means that you don’t need to write separate code for server and client side code. Instead you keep everything in the ReplicatedStorage and make booleans of `:IsClient()` or `:IsServer()` to decide what code gets executed depending on where the module is called from. 
