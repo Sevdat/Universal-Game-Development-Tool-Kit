@@ -13,7 +13,7 @@ This project contains everything you could ever need for developing a complex Ro
 <div align="center">
 
 <a href="https://www.youtube.com/watch?v=6pk4EcZ6t1A">
-  <img src="https://github.com/user-attachments/assets/17b5b1e6-0fea-472a-89ef-d9d50c164f16"
+  <img src="https://github.com/user-attachments/assets/aef336ca-1aac-4bd5-9226-1056fb74617c"
        alt="Watch Iron Brainrot: Mech Arena Showdown"
        width="800">
 </a>
