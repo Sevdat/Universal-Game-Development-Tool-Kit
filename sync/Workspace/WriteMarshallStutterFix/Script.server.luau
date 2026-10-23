@@ -1,0 +1,2 @@
+task.wait()
+script:Destroy()
