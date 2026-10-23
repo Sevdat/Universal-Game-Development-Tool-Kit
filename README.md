@@ -91,5 +91,3 @@ Changes the lightning depending on which planet you are on.
 Games Created using this template:
 [Iron Brainrot](https://www.roblox.com/games/108243294906113/Iron-Brainrot)
 [Iron Block](https://www.roblox.com/games/133923776182105/Iron-Block)
-
-P.S After 11 months of grinding from 6 in the morning until midnight I am very burnt out. This project took everything out of me and I really don't have it in me to continiue. If you could donate 5% of your revenue from the reskins you make I'd be very greteful. If not then that's ok too. Join the discord if you want to develop this codebase further. If this project takes no attention then I'm just gonna quit. Good luck)
