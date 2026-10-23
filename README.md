@@ -22,7 +22,7 @@ The is a unified Server-Client scripting architecture living in the ReplicatedSt
 
 <div align="center">
 
-![Screenshot 2026-10-20 012138|306x500](upload://xhCZb7Fc09sEOsKHdIfz3z748lb.png)
+<img width="443" height="723" alt="Screenshot 2026-10-20 012138" src="https://github.com/user-attachments/assets/c5d8a8ac-b5d6-48a1-9a7c-b3c914430fe2" />
 
 </div>
 
