@@ -10,11 +10,11 @@ TestPlace: [Uncopylocked](https://www.roblox.com/games/128126255458759/Universal
 
 This project contains everything you could ever need for developing a complex Roblox Game. The codebase is designed to be optimized, easy to use, scale, and keep the network replication under 50Kb/s. 
 
-<center>
+<div align="center">
 
 https://www.youtube.com/watch?v=6pk4EcZ6t1A
 
-</center>
+</div>
 
 The is a unified Server-Client scripting architecture living in the ReplicatedStorage. This means that you don’t need to write separate code for server and client side code. Instead you keep everything in the ReplicatedStorage and make booleans of `:IsClient()` or `:IsServer()` to decide what code gets executed depending on where the module is called from. 
 
