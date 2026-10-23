@@ -11,12 +11,11 @@ TestPlace: [Uncopylocked](https://www.roblox.com/games/128126255458759/Universal
 This project contains everything you could ever need for developing a complex Roblox Game. The codebase is designed to be optimized, easy to use, scale, and keep the network replication under 50Kb/s. 
 
 <div align="center">
+  <a href="https://www.youtube.com/watch?v=6pk4EcZ6t1A">
+    <img src="https://github.com/user-attachments/assets/aef336ca-1aac-4bd5-9226-1056fb74617c" width="800" alt="Iron Brainrot">
+  </a>
 
-<a href="https://www.youtube.com/watch?v=6pk4EcZ6t1A">
-  <img src="https://github.com/user-attachments/assets/aef336ca-1aac-4bd5-9226-1056fb74617c"
-       alt="Watch Iron Brainrot"
-       width="800">
-</a>
+  <p><a href="https://www.youtube.com/watch?v=6pk4EcZ6t1A">▶ Watch Video</a></p>
 </div>
 
 The is a unified Server-Client scripting architecture living in the ReplicatedStorage. This means that you don’t need to write separate code for server and client side code. Instead you keep everything in the ReplicatedStorage and make booleans of `:IsClient()` or `:IsServer()` to decide what code gets executed depending on where the module is called from. 
@@ -27,9 +26,7 @@ The is a unified Server-Client scripting architecture living in the ReplicatedSt
 
 </div>
 
-
 The metatables of server and clients are synchronized with StringValues named after the module path `“ClassName_BehaviourName_ConfigName”` and contains a GUID string in its value `“c362b9e4- -98aa-1da46603ce2a”`. Every instance containing a metatable has a StringValue parented under it and has a GUID Attribute for quick access. The metatables are paired up in the global cache table, `[“GUID”] = {}`, which allows each module to access one another in `O(1)` time. Each class of metatables has a shared external access function called `:Interface(“FunctionName”...)` to reduce complexity and find where the external accesses occurrs in the codebase. Each `StringValue` is connected to a `Destroying` event to automatically clean up and dereference itself from the Global Cache Metatables when the `StringValue` is Destroyed. In order to load properly the models are set be `Atomic` so that the model only loads to workspace when it is fully ensembled in the client side.
-
 
 <details> 
 <summary> Weapons</summary>  
