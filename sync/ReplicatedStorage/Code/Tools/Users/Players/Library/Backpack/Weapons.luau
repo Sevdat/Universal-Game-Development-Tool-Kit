@@ -78,6 +78,22 @@ function module.ShootWeaponFunction(backPackModule)
 			local weaponTable = weapons[guidObject.Value]
 			if not weaponTable then return end
 			weaponTable:Interface("RequestShoot",pullTrigger,false,true)
+		else
+			local guid = next(weapons)
+			if not guid then return end
+
+			local player = backPackModule.Player
+			local playerBackpack = player and player:FindFirstChild("Backpack")
+			local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+			if not playerBackpack or not humanoid then return end
+
+			for _, tool in ipairs(playerBackpack:GetChildren()) do
+				local guidObject = tool:FindFirstChild("GUIDObject")
+				if guidObject and guidObject.Value == guid then
+					humanoid:EquipTool(tool)
+					break
+				end
+			end
 		end
 	end
 end
