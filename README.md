@@ -35,9 +35,7 @@ The metatables of server and clients are synchronized with StringValues named af
   <a href="https://devforum.roblox.com/t/swiftcast-simple-fast-and-easy-projectiles/4477145">Swiftcast</a>
   and
   <a href="https://devforum.roblox.com/t/homingcast-homing-projectiles/3786022">HomingCast</a>
-  for projectile motion.
-
-  The server shoots rays and the client simulates the visual projectile by shooting towards the same spot.
+  for projectile motion. Each weapon’s user sends their current `RaycastResult.Position` and aimed target every 0.1 seconds through a remote which updates the aim tables for both server and clients. When the weapon's trigger is pulled, the Aim table gets read to fire the projectile to that position or lock the projectile to follow the target. This is done to optimize network replication for fast shooting weapons such as miniguns, lasers, flamethrowers, etc. The humanoid’s body aim is moved by accessing its RigAttachments and AlignOrientation to face towards the aimed position. Multiple weapons can be equipped. Players in the safe zone won’t be damaged by the projectiles. When a Player kills an enemy their health is restored to full. 
 </details>
 
 <details> 
