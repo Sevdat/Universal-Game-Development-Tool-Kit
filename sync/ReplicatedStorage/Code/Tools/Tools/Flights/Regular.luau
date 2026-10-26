@@ -211,7 +211,7 @@ function Regular:FlightAnimationsController(x,y) -- To trigger animations depend
 		self.FlyBackward:Stop()
 	end
 
-	if isIdle then --If not of the blocks triggered above then that means the player is idle and idle animations should play or be disabled
+	if isIdle then --If none of the blocks triggered above then that means the player is idle and idle animations should play or be disabled
 		if not self.FlyIdle.IsPlaying then
 			self.FlyIdle:Play()
 		end
@@ -246,50 +246,50 @@ function Regular:FlightPhysics(dt) --This is where the flight calculations happe
 		else
 			moveVector = Vector3.new(moveVector.X,camLook.Y,moveVector.Z) --Fly towards the right or left depending on character motion
 		end
-		directionForce = moveVector*flightForce*mass --Apply the the direction the force will go
-		vectorForce += directionForce -- Add directionForce to vectorForce
+		directionForce = moveVector*flightForce*mass --Calculates directional force scaled by flight force and mass
+		vectorForce += directionForce -- Adds directionForce to vectorForce
 	end
 
-	local physicsAlpha = math.clamp(dt * 12 , 0, 1) -- This chunk is to tile the character forward
-	local targetDirection = CFrame.lookAt(Vector3.zero, camLook)
-	self.CurrentLookCFrame = (self.CurrentLookCFrame or targetDirection):Lerp(targetDirection, physicsAlpha)
-	self.AlignOrientation.CFrame = self.CurrentLookCFrame * self.TiltForward
+	local physicsAlpha = math.clamp(dt * 12 , 0, 1) -- Calculates interpolation alpha for orientation smoothing
+	local targetDirection = CFrame.lookAt(Vector3.zero, camLook) --Creates target direction CFrame from camera look vector
+	self.CurrentLookCFrame = (self.CurrentLookCFrame or targetDirection):Lerp(targetDirection, physicsAlpha) --Interpolates current look CFrame smoothly
+	self.AlignOrientation.CFrame = self.CurrentLookCFrame * self.TiltForward --Applies alignment orientation with tilt offset
 
-	if linearVelocity.Magnitude > 0.05 then -- Trigger the codeblock that applies drag equation
-		local speed = linearVelocity.Magnitude
-		local rawDragForce = speed ^ 1.2 * self.Config.Drag * mass
+	if linearVelocity.Magnitude > 0.05 then -- Trigger the codeblock if linear velocity magnitude exceeds threshold for drag
+		local speed = linearVelocity.Magnitude --Gets current speed magnitude
+		local rawDragForce = speed ^ 1.2 * self.Config.Drag * mass --Calculates raw drag force based on speed and drag config
 
-		local appliedForce = baselineForce + directionForce
-		local maxDragForce = appliedForce.Magnitude
+		local appliedForce = baselineForce + directionForce --Calculates total applied forward/lift force
+		local maxDragForce = appliedForce.Magnitude -- Determines max allowable drag force
 
-		local maxStoppingForce = (mass * speed) / dt
+		local maxStoppingForce = (mass * speed) / dt --Calculates max stopping force to prevent overshooting
 
-		local dragForce = math.clamp(rawDragForce, 0, math.min(maxDragForce, maxStoppingForce))
+		local dragForce = math.clamp(rawDragForce, 0, math.min(maxDragForce, maxStoppingForce)) -- Clamps drag force within valid limits
 
-		local dragVector = -linearVelocity.Unit * dragForce
-		vectorForce += dragVector
+		local dragVector = -linearVelocity.Unit * dragForce --Calculates opposing drag vector direction
+		vectorForce += dragVector --Adds drag force to total vector force
 	end
 
-	self.VectorForce.Force = vectorForce -- Apply calculated vectorforce
+	self.VectorForce.Force = vectorForce -- Applies calculated vectorforce
 end
 
 function Regular:Movement(dt)
 	local rawInputVector = rawInput.GetLocalPlayerMoveVector(self.Player) --Get the current character movement input
-	self.xAxis = math.round(rawInputVector.X)
-	self.yAxis = math.round(rawInputVector.Y)
+	self.xAxis = math.round(rawInputVector.X) -- Get x direction of character
+	self.yAxis = math.round(rawInputVector.Y) -- Get y direction of character
 	
 	local deltaTurn = rawInput.GetCameraDelta() * 10 -- Get x mouse rotation
 	local decay = math.sign(self.CameraTurn) * dt * 10 -- Amount to reduce from input
 	self.CameraTurn = math.abs(decay) >= math.abs(self.CameraTurn) and deltaTurn 
 					  or math.clamp(self.CameraTurn - decay+deltaTurn, -math.pi, math.pi) -- Apply the turn decay
 	
-	local targetYaw = (-math.sign(self.xAxis)*2/12) -- This chunk is for the orientation of character while flying which will be give to alignorientation
-	local targetRoll = self.yAxis > 0 and (-self.CameraTurn/4)*math.sign(math.abs(self.yAxis)) or 0
-	local targetPitch = self.yAxis > 0 and -math.pi / 2 or 0
+	local targetYaw = (-math.sign(self.xAxis)*2/12) -- Calculates target yaw rotation based on X input
+	local targetRoll = self.yAxis > 0 and (-self.CameraTurn/4)*math.sign(math.abs(self.yAxis)) or 0 -- Calculates target roll rotation based on camera turn and Y input
+	local targetPitch = self.yAxis > 0 and -math.pi / 2 or 0 -- Calculates target pitch rotation based on Y input
 
-	local targetTilt = CFrame.fromOrientation(0, targetYaw, 0) --This chunk of the code applies the orientation of the character
-		* CFrame.fromOrientation(0, 0, targetRoll) 
-		* CFrame.fromOrientation(targetPitch, 0, 0)
+	local targetTilt = CFrame.fromOrientation(0, targetYaw, 0) --This chunk of the code applies the orientation of the character. Creates yaw orientation CFrame component
+		* CFrame.fromOrientation(0, 0, targetRoll) -- Multiplies roll orientation component
+		* CFrame.fromOrientation(targetPitch, 0, 0) -- Multiplies pitch orientation component
 
 	local lerpSpeed = 10 --Sensitivity of lerp
 	local alpha = math.clamp(dt * lerpSpeed, 0, 1) 
@@ -302,14 +302,14 @@ function Regular:Movement(dt)
 end
 
 function Regular:MouseLock(activate) -- Enable mouse locking to the center
-	self.Active = activate
-	userInputService.MouseBehavior = activate and Enum.MouseBehavior.LockCenter or Enum.MouseBehavior.Default
-	userInputService.MouseIconEnabled = not activate
+	self.Active = activate 
+	userInputService.MouseBehavior = activate and Enum.MouseBehavior.LockCenter or Enum.MouseBehavior.Default -- lock mouse to the center of the screen or let it be free
+	userInputService.MouseIconEnabled = not activate -- make mouse invisible or visible
 end
 
 function Regular:Interface(functionName,...) -- This function is to be used by external functions to access this module
-	if self._destroyed then return end
-	return self.FlightInterface and self.FlightInterface:Call(functionName,...)
+	if self._destroyed then return end -- Block if metatable destroy function already executed
+	return self.FlightInterface and self.FlightInterface:Call(functionName,...) -- Safely call an existing function in the provided table that interacts with this metatable. The three dots is for passing as many variables as the user chooses
 end
 
 function Regular:Destroy() --Clean up
@@ -317,16 +317,16 @@ function Regular:Destroy() --Clean up
 	self._destroyed = true -- Stop function calls that get triggered by async calls
 	self:TriggerFlight(false) -- Disable flight
 
-	self.FlyIdle = self.FlyIdle and self.FlyIdle:Destroy()
-	self.FlyLeft = self.FlyLeft and self.FlyLeft:Destroy()
-	self.FlyRight = self.FlyRight and self.FlyRight:Destroy()
-	self.FlyForward = self.FlyForward and self.FlyForward:Destroy()
-	self.FlyBackward = self.FlyBackward and self.FlyBackward:Destroy()
+	self.FlyIdle = self.FlyIdle and self.FlyIdle:Destroy() -- Clean up animation
+	self.FlyLeft = self.FlyLeft and self.FlyLeft:Destroy() -- Clean up animation
+	self.FlyRight = self.FlyRight and self.FlyRight:Destroy() -- Clean up animation
+	self.FlyForward = self.FlyForward and self.FlyForward:Destroy() -- Clean up animation
+	self.FlyBackward = self.FlyBackward and self.FlyBackward:Destroy() -- Clean up animation
 
-	self.AlignOrientation = self.AlignOrientation and self.AlignOrientation:Destroy()
-	self.VectorForce = self.VectorForce and self.VectorForce:Destroy()
+	self.AlignOrientation = self.AlignOrientation and self.AlignOrientation:Destroy() -- Clean up Alignorientation
+	self.VectorForce = self.VectorForce and self.VectorForce:Destroy() -- -- Clean up vectorForce
 
-	self.Particles = self.Particles and self.Particles:Destroy()
+	self.Particles = self.Particles and self.Particles:Destroy() -- Trigger Destroy Function in the table to clean up the particles and set variable to nil
 	
 	toolsModule.DestroyTool(self.GUIDObject) -- Clear from Global Cache
 end
