@@ -1,3 +1,5 @@
+--Connected Discord-GitHub
+
 local players = game:GetService("Players") --Access to all current players
 local runService = game:GetService("RunService") --Access to loops, execution enviroment, etc
 local httpService = game:GetService("HttpService") --Currently unnecesary. Was used to create GUID
