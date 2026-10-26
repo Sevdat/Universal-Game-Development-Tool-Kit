@@ -14,7 +14,7 @@ local localPlayer = isClient and players.LocalPlayer --Get the Users player data
 
 local movementInterval = 0.3 --Currently unnecesary. Was used to control how ofter heartbeat loop triggered
 
-local DEADZONE = 0.2 --Is being used to control flight animation from IAS inputs
+local DEADZONE = 0.2 --Is being used to control flight animation from IAS inputs by triggering only at above threshold limit
 
 local Regular = {} --Create Table
 Regular.__index = Regular --Looks for methods inside the metatables if missing in the created table
