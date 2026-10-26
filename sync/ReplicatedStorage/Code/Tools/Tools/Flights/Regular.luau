@@ -175,7 +175,7 @@ function Regular:FlightAnimationsController(x,y) -- To trigger animations depend
 
 	local isIdle = true --If nothing changes this then that means the mouse didn't move
 
-	if x > DEADZONE then -- Trigger Right animations on player movement right x or disable
+	if x > DEADZONE then -- Trigger Right animation on player movement right x or disable
 		if not self.FlyRight.IsPlaying then
 			self.FlyRight:Play()
 		end
@@ -184,7 +184,7 @@ function Regular:FlightAnimationsController(x,y) -- To trigger animations depend
 		self.FlyRight:Stop()
 	end
 
-	if x < -DEADZONE then -- Trigger Right animations on player movement left x or disable
+	if x < -DEADZONE then -- Trigger Right animation on player movement left x or disable
 		if not self.FlyLeft.IsPlaying then
 			self.FlyLeft:Play()
 		end
@@ -193,7 +193,7 @@ function Regular:FlightAnimationsController(x,y) -- To trigger animations depend
 		self.FlyLeft:Stop()
 	end
 
-	if y > DEADZONE then -- Trigger Forward animations on player movement up y or disable
+	if y > DEADZONE then -- Trigger Forward animation on player movement up y or disable
 		if not self.FlyForward.IsPlaying then
 			self.FlyForward:Play()
 		end
@@ -202,7 +202,7 @@ function Regular:FlightAnimationsController(x,y) -- To trigger animations depend
 		self.FlyForward:Stop()
 	end
 
-	if y < -DEADZONE then -- Trigger Bacward animations on player movement up y or disable
+	if y < -DEADZONE then -- Trigger Bacward animation on player movement up y or disable
 		if not self.FlyBackward.IsPlaying then
 			self.FlyBackward:Play()
 		end
